@@ -20,7 +20,7 @@ public class Topic_03_Exercise_WebElement {
 		driver = new FirefoxDriver();
 		driver.get("https://daominhdam.github.io/basic-form/index.html");
 
-		//Phóng to trình duyệt
+		// Phóng to trình duyệt
 		driver.manage().window().maximize();
 
 		// Wait element (findElement) trong 30s (WebDriverWait)
@@ -49,8 +49,8 @@ public class Topic_03_Exercise_WebElement {
 
 	@Test
 	public void TC_01_IsDisplayed() {
-		//Test Script 01: Kiểm tra phần tử hiển thị trên trang
-		//Cách 1
+		// Test Script 01: Kiểm tra phần tử hiển thị trên trang
+		// Cách 1
 		/*
 		 * if (driver.findElement(emailByTextbox).isDisplayed()) {
 		 * driver.findElement(emailByTextbox).sendKeys("Automation Testing"); } else {
@@ -67,7 +67,7 @@ public class Topic_03_Exercise_WebElement {
 		 * "] is not display!"); // }
 		 */
 
-		//Cách 2
+		// Cách 2
 		if (isControlDisplayed(emailByTextbox)) {
 			driver.findElement(emailByTextbox).sendKeys("Automation Testing");
 		}
@@ -83,9 +83,9 @@ public class Topic_03_Exercise_WebElement {
 
 	@Test
 	public void TC_02_IsEnabled() {
-		//Test Script 02: Kiểm tra phần tử enable/ disable trên trang
+		// Test Script 02: Kiểm tra phần tử enable/ disable trên trang
 
-		//Enabled
+		// Enabled
 		Assert.assertTrue(isControlEnabled(emailByTextbox));
 		Assert.assertTrue(isControlEnabled(ageUnder18ByRadio));
 		Assert.assertTrue(isControlEnabled(educationByTextArea));
@@ -94,7 +94,7 @@ public class Topic_03_Exercise_WebElement {
 		Assert.assertTrue(isControlEnabled(slider01BySlider));
 		Assert.assertTrue(isControlEnabled(buttonByBtnenabled));
 
-		//Disabled
+		// Disabled
 		Assert.assertFalse(isControlEnabled(passwordByTextbox));
 		Assert.assertFalse(isControlEnabled(radiobuttondisabledByRadio));
 		Assert.assertFalse(isControlEnabled(biographyByTextArea));
@@ -106,27 +106,25 @@ public class Topic_03_Exercise_WebElement {
 
 	@Test
 	public void TC_03_IsSelected() {
-		//Test Script 03: Kiểm tra phần tử được chọn trên trang
+		// Test Script 03: Kiểm tra phần tử được chọn trên trang
 
-		//Step 02 - Click chọn Age (Under 18)/ Interests (Development)
+		// Step 02 - Click chọn Age (Under 18)/ Interests (Development)
+		driver.findElement(ageUnder18ByRadio).click();
+		driver.findElement(interestsByCheckbox).click();
 
-			driver.findElement(ageUnder18ByRadio).click();
-			driver.findElement(interestsByCheckbox).click();
-			
-		//Step 03 - Kiểm tra các phần tử tại Step 02 đã được chọn
-
+		// Step 03 - Kiểm tra các phần tử tại Step 02 đã được chọn
 		Assert.assertTrue(isControlSelected(ageUnder18ByRadio));
 		Assert.assertTrue(isControlSelected(interestsByCheckbox));
 
-		//Step 04 - Nếu chưa được chọn thì cho phép chọn lại 1 lần nữa
+		// Click để bỏ chọn development checkbox
+		driver.findElement(interestsByCheckbox).click();
+		Assert.assertFalse(isControlSelected(interestsByCheckbox));
 
-
-		if (!isControlSelected(ageUnder18ByRadio)) {
-			driver.findElement(ageUnder18ByRadio).click();
-		}
-
+		// Step 04 - Nếu chưa được chọn thì cho phép chọn lại 1 lần nữa
 		if (!isControlSelected(interestsByCheckbox)) {
 			driver.findElement(interestsByCheckbox).click();
+			Assert.assertTrue(isControlEnabled(interestsByCheckbox));
+
 		}
 
 	}
